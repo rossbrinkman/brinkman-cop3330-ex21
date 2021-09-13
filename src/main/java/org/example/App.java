@@ -1,5 +1,6 @@
 package org.example;
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -11,47 +12,65 @@ public class App
 {
     public static void main( String[] args )
     {
-        DecimalFormat f = new DecimalFormat("#0.00####");
         Scanner scanner = new Scanner(System.in);
-        int maleOrFemale;
-        float ouncesAlcohol, weight, hoursSinceLastDrink, alcoholDistributionRatio, bloodAlcoholContent;
-        String currentInput;
+        int monthNumber;
+        String month;
 
-        System.out.println( "Enter a 1 if you are male or a 2 if you are female: " );
-        currentInput = scanner.nextLine();
-        try{
-            maleOrFemale = Integer.parseInt(currentInput);}
-        catch (NumberFormatException nfe){
-            System.out.println( "Input must be numeric" );
-            return;
+        System.out.println( "Please enter the number of the month: " );
+        while (true) {
+            try {
+                monthNumber = scanner.nextInt();
+                break;
+            } catch (InputMismatchException ime) {
+                System.out.println("Invalid input. Must be a number: ");
+                scanner.next();
+            }
         }
 
-        if(maleOrFemale == 1)
-            alcoholDistributionRatio = 0.73f;
-        else if (maleOrFemale == 2)
-            alcoholDistributionRatio = 0.66f;
-        else
+        switch (monthNumber)
         {
-            System.out.println( "Invalid Input" );
-            return;
+            case 1:
+                month = "January";
+                break;
+            case 2:
+                month = "February";
+                break;
+            case 3:
+                month = "March";
+                break;
+            case 4:
+                month = "April";
+                break;
+            case 5:
+                month = "May";
+                break;
+            case 6:
+                month = "June";
+                break;
+            case 7:
+                month = "July";
+                break;
+            case 8:
+                month = "August";
+                break;
+            case 9:
+                month = "September";
+                break;
+            case 10:
+                month = "October";
+                break;
+            case 11:
+                month = "November";
+                break;
+            case 12:
+                month = "December";
+                break;
+            default:
+                System.out.println("Invalid Number. Months are numbers 1-12");
+                month = "";
+                System.exit(0);
         }
-
-        System.out.println( "How many ounces of alcohol did you have? " );
-        ouncesAlcohol = scanner.nextFloat();
-
-        System.out.println( "What is your weight in pounds? " );
-        weight = scanner.nextFloat();
-
-        System.out.println( "How many hours has it been since your last drink? " );
-        hoursSinceLastDrink = scanner.nextFloat();
-
-        bloodAlcoholContent = (ouncesAlcohol * 5.14f / weight * alcoholDistributionRatio) - .015f * hoursSinceLastDrink;
-
-        System.out.println( "Your BAC is " + f.format(bloodAlcoholContent));
-
-        String endString = bloodAlcoholContent >= .08f ? "It is not legal for you to drive" : "It is legal for you to drive";
-
-        System.out.println(endString);
+        System.out.println("The name of the month is " + month + ".");
 
         scanner.close();
     }
